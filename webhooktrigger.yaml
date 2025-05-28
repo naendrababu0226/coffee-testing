@@ -1,0 +1,31 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: github-push-template
+spec:
+  params:
+    - name: gitrevision
+    - name: gitrepositoryurl
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: github-pipeline-run-
+      spec:
+        pipelineRef:
+          name: your-pipeline-name
+        params:
+          - name: gitrevision
+            value: $(tt.params.gitrevision)
+          - name: gitrepositoryurl
+            value: $(tt.params.gitrepositoryurl)
+        workspaces:
+          - name: shared-workspace
+            volumeClaimTemplate:
+              metadata:
+                name: pipeline-pvc
+              spec:
+                accessModes: ["ReadWriteOnce"]
+                resources:
+                  requests:
+                    storage: 1Gi
