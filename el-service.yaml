@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: el-github-listener
+spec:
+  type: LoadBalancer
+  selector:
+    eventlistener: github-listener
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
