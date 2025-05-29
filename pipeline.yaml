@@ -13,6 +13,7 @@ spec:
       taskRef:
         name: git-clone
         kind: ClusterTask
+        apiVersion: tekton.dev/v1beta1
       params:
         - name: url
           value: $(params.git-url)
@@ -23,6 +24,7 @@ spec:
       taskRef:
         name: buildah
         kind: ClusterTask
+        apiVersion: tekton.dev/v1beta1
       params:
         - name: IMAGE
           value: $(params.image-url)
