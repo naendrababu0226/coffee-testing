@@ -5,30 +5,16 @@ metadata:
   namespace: narendra-namespace
 spec:
   params:
-    - name: git-url
-    - name: git-revision
+    - name: repo-url
+      type: string
     - name: image-url
+      type: string
   tasks:
-    - name: clone-source
+    - name: build-push-task
       taskRef:
-        name: git-clone
-        kind: ClusterTask
-        apiVersion: tekton.dev/v1beta1
+        name: build-push-image
       params:
-        - name: url
-          value: $(params.git-url)
-        - name: revision
-          value: $(params.git-revision)      
-    - name: build-and-push
-      runAfter: [clone-source]
-      taskRef:
-        name: buildah
-        kind: ClusterTask
-        apiVersion: tekton.dev/v1beta1
-      params:
-        - name: IMAGE
+        - name: repo-url
+          value: $(params.repo-url)
+        - name: image-url
           value: $(params.image-url)
-        - name: CONTEXT
-          value: .
-        - name: DOCKERFILE
-          value: ./Dockerfile

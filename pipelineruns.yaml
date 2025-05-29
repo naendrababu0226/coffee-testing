@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: build-and-push-pipelinerun
+  namespace: narendra-namespace
+spec:
+  pipelineRef:
+    name: build-and-push-pipeline
+  params:
+    - name: repo-url
+      value: https://github.com/naendrababu0226/coffee-testing.git
+    - name: image-url
+      value: aksbootcampregistry.azurecr.io
