@@ -11,12 +11,10 @@ public class ProcessesResource {
 
     @Inject
     OrderStatusProcessor processor;
-
     @POST
     public JsonObject process(JsonObject order) {
         final String status = order.getString("status", null);
         String newStatus = processor.process(status);
         return Json.createObjectBuilder().add("status", newStatus).build();
     }
-
 }
