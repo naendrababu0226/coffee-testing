@@ -121,3 +121,6 @@ mvn verify \
 - https://blog.sebastian-daschner.com/entries/efficient-testing-video-course[Efficient enterprise testing (video course)^]
 - https://blog.sebastian-daschner.com/entries/thoughts-on-efficient-testing[Efficient enterprise testing (article series)^]
 - https://blog.sebastian-daschner.com/entries/tests-that-spark-flow-poem[Tests that spark flow — A poem^]
+
+
+== Testing the functionality
