@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-and-push-run-
+  namespace: narendra-namespace
+spec:
+  pipelineRef:
+    name: build-and-push-pipeline
+  params:
+    - name: git-url
+      value: https://github.com/your-org/your-app-repo.git
+    - name: git-revision
+      value: main
+    - name: image-url
+      value: myregistry.azurecr.io/my-app:$(context.pipelineRun.name)

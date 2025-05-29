@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-push-pipeline
+  namespace: narendra-namespace
+spec:
+  params:
+    - name: git-url
+    - name: git-revision
+    - name: image-url
+  tasks:
+    - name: clone-source
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value: $(params.git-revision)      
+    - name: build-and-push
+      runAfter: [clone-source]
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: $(params.image-url)
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: ./Dockerfile
